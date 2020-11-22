@@ -183,7 +183,7 @@ a:hover {
     <a class="btn btn-primary" href="/donations/donationslist/organizationform" role="button">Add Organization</a>
     <div class="row row-cols-1 row-cols-md-2">
     {% if list_of_organizations %}
-    {% for Organization in list_of_organizations %}
+    {% for organization in list_of_organizations %}
       <div class="col mb-4">
         <!-- Card -->
         <div class="card">
@@ -201,11 +201,12 @@ a:hover {
           <div class="card-body">
     
             <!--Title-->
-            <h4 class="card-title">{{ Organization.organization_text }}</h4>
+            <h4 class="card-title">{{ organization.organization_text }}</h4>
             <!--Text-->
-            <p class="card-text">{{ Organization.description_text }}</p>
+            <p class="card-text">{{ organization.description_text }}</p>
             <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
             <button type="button" class="btn btn-light-blue btn-md" >Read more</button>
+            <a style="color:green"href="{% url 'donations:reviewlist' organization.id %}">Reviews</a>
           </div>
     
         </div>

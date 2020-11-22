@@ -7,6 +7,7 @@ from django.shortcuts import get_object_or_404  # used for shortcut method
 from .models import Profile
 from .forms import ProfileForm
 from .forms import UserForm
+from .models import Review
 
 # Create your views here.
 
@@ -101,27 +102,24 @@ def add_task(request):
                 description_text=description_text)
         t.save()
     return HttpResponseRedirect(reverse('donations:tasks'))
-    
-"""
+
 def review(request):
     if request.method == 'POST':
-        if request.POST.get('organization') and request.POST.get('review_text'):
-            review=Review()
-            review.organization = request.POST.get('organization')
-            review.review_text = request.POST.get('review_text')
+        if request.POST.get('review_organization') and request.POST.get('review_text'):
+            review.review_organization = request.POST['review_organization']
+            review.review_text = request.POST['review_text']
+            review = Review(review_organization=review_organization, review_text=review_text)
             review.save()
 
-            return render(request, 'polls/review.html')
-        else:
-            return render(request, 'polls/review.html')
+            return render(request, 'donations/organization_reviewsList.html')
     else:
-        return render(request, 'polls/review.html')
-    
-def reviewList(request):
-    list_of_comments = Comment.objects.order_by('-pub_date')
-    template = loader.get_template('polls/list.html')
+        return render(request, 'donations/review.html')
+        
+def reviewlist(request, pk):
+    organization = get_object_or_404(Organization, pk=pk)
+    reviews = organization.review_set.all()
     context = {
-        'list_of_comments': list_of_comments,
+        'reviews': reviews,
+        'organization':organization,
     }
-    return HttpResponse(template.render(context,request))
-"""
+    return render(request, 'donations/organization_reviewsList.html', context)

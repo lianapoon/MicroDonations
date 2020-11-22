@@ -29,14 +29,14 @@ class Profile(models.Model):
     profile_phone = models.CharField(max_length=100)
     # favorite_orgs = models.ManyToManyField(Organization)
     # image = models.ImageField(upload_to='profile_image', blank=True)
-"""
+
 class Review(models.Model):
-    organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
+    organization = models.ForeignKey(Organization, null=True ,on_delete=models.CASCADE)
+    review_organization = models.CharField(max_length=200000)
     review_text = models.CharField(max_length=200000)
-    pub_date = models.DateTimeField('date published') # auto_now_add=True
     def __str__(self):
         return self.review_text
-"""
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:

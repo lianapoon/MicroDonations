@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Organization, Task, Profile
+from .models import Organization, Task, Profile, Review
 
 
 class OrganizationAdmin(admin.ModelAdmin):
@@ -27,6 +27,6 @@ class TaskAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Task, TaskAdmin)
-
+admin.site.register(Review)
 
 admin.site.register(Profile)
